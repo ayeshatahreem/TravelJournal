@@ -2,141 +2,89 @@ package com.ayesha.hp.traveljournal;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.app.Dialog;
+import android.content.Intent;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-
-    private String[] mNavigationDrawerItemTitles;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    Toolbar toolbar;
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
+public class MainActivity extends AppCompatActivity
+{
+    Button btnSignIn,btnSignUp;
+    DatabaseAdapter loginDataBaseAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTitle = mDrawerTitle = getTitle();
-        mNavigationDrawerItemTitles= getResources().getStringArray(R.array.drawer_items);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        setupToolbar();
+// create a instance of SQLite Database
+        loginDataBaseAdapter=new DatabaseAdapter(this);
+        loginDataBaseAdapter=loginDataBaseAdapter.open();
 
-        DataLinker[] drawerItem = new DataLinker[7];
+// Get The Refference Of Buttons
+        btnSignIn=(Button)findViewById(R.id.buttonSignIN);
+        btnSignUp=(Button)findViewById(R.id.buttonSignUP);
 
-        drawerItem[0] = new DataLinker(R.drawable.about, "About");
-        drawerItem[1] = new DataLinker(R.drawable.diary, "Check Ins");
-        drawerItem[2] = new DataLinker(R.drawable.gallery, "Diary");
-        drawerItem[3] = new DataLinker(R.drawable.gallery, "Gallery");
-        drawerItem[4] = new DataLinker(R.drawable.gallery, "News Tour");
-        drawerItem[5] = new DataLinker(R.drawable.gallery, "Reviews");
-        drawerItem[6] = new DataLinker(R.drawable.gallery, "Wishlist");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setHomeButtonEnabled(true);
+// Set OnClick Listener on SignUp button
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+// TODO Auto-generated method stub
 
-        DataProvider adapter = new DataProvider(this, R.layout.listview, drawerItem);
-        mDrawerList.setAdapter(adapter);
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        setupDrawerToggle();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+/// Create Intent for SignUpActivity abd Start The Activity
+                Intent intentSignUP=new Intent(getApplicationContext(),SignUp.class);
+                startActivity(intentSignUP);
+            }
+        });
     }
+    // Methos to handleClick Event of Sign In Button
+    public void signIn(View V)
+    {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.signin);
+        dialog.setTitle("Sign in");
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+// get the Refferences of views
+        final EditText editTextUserName=(EditText)dialog.findViewById(R.id.editTextUserNameToLogin);
+        final EditText editTextPassword=(EditText)dialog.findViewById(R.id.editTextPasswordToLogin);
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
+        Button btnSignIn=(Button)dialog.findViewById(R.id.buttonSignIn);
 
-    }
+// Set On ClickListener
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
 
-    private void selectItem(int position) {
-        Fragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = new AboutFragment();
-                break;
-            case 1:
-                fragment = new CheckInsFragment();
-                break;
-            case 2:
-                fragment = new DiaryFragment();
-                break;
-            case 3:
-                fragment = new GalleryFragment();
-                break;
-            case 4:
-                fragment = new NewsTourFragment();
-                break;
-            case 5:
-                fragment = new ReviewsFragment();
-                break;
-            case 6:
-                fragment = new WishlistFragment();
-                break;
-            default:
-                break;
-        }
+            public void onClick(View v) {
+// get The User name and Password
+                String userName=editTextUserName.getText().toString();
+                String password=editTextPassword.getText().toString();
 
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+// fetch the Password form database for respective user name
+                String storedPassword=loginDataBaseAdapter.getSinlgeEntry(userName);
 
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(mNavigationDrawerItemTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
-        }
-        else
-        {
-            Log.e("MainActivity", "Error in creating fragment");
-        }
+// check if the Stored password matches with Password entered by user
+                if(password.equals(storedPassword))
+                {
+                    Toast.makeText(MainActivity.this, "Congrats: Login Successful", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                    Intent ui=new Intent(getApplicationContext(),UserInterface.class);
+                    startActivity(ui);
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    void setupToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
-
-    void setupDrawerToggle(){
-        mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this,mDrawerLayout,
-                toolbar,R.string.app_name, R.string.app_name);
-        //This is necessary to change the icon of the Drawer Toggle upon state change.
-        mDrawerToggle.syncState();
+    protected void onDestroy() {
+        super.onDestroy();
+// Close The Database
+        loginDataBaseAdapter.close();
     }
 }
