@@ -54,6 +54,9 @@ public class SignUp extends AppCompatActivity
             }
         });
     }
+    public void goBack(View v) {
+        finish();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
