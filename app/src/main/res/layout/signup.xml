@@ -3,12 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#af182f"
     android:gravity="center_vertical" >
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Travel Journal"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:layout_marginTop="10sp"
+        android:textSize="60sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:fontFamily="Comic Sans MS"
+        android:textStyle="bold"/>
+
+
     <EditText
         android:id="@+id/editTextUserName"
         android:hint="User Name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:ems="15">
         <requestFocus />
     </EditText>
     <EditText
@@ -16,17 +34,28 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:ems="15"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"/>
     <EditText
         android:id="@+id/editTextConfirmPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:ems="15"
         android:hint="Confirm Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"/>
     <Button
         android:id="@+id/buttonCreateAccount"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Create Account"
+        android:background="#ffffff"
+        android:textColor="#af182f"
         android:layout_marginBottom="60dp" />
 </LinearLayout>
+
+
+
+
+

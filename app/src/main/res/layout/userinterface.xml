@@ -20,7 +20,7 @@
             <include
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar"
-                android:background="#f20e0e" />
+                android:background="#af182f" />
         </LinearLayout>
 
 

@@ -13,78 +13,53 @@ public class MainActivity extends AppCompatActivity
 {
     Button btnSignIn,btnSignUp;
     DatabaseAdapter loginDataBaseAdapter;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-// create a instance of SQLite Database
         loginDataBaseAdapter=new DatabaseAdapter(this);
         loginDataBaseAdapter=loginDataBaseAdapter.open();
-
-// Get The Refference Of Buttons
         btnSignIn=(Button)findViewById(R.id.buttonSignIN);
         btnSignUp=(Button)findViewById(R.id.buttonSignUP);
-
-// Set OnClick Listener on SignUp button
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-// TODO Auto-generated method stub
-
-/// Create Intent for SignUpActivity abd Start The Activity
-                Intent intentSignUP=new Intent(getApplicationContext(),SignUp.class);
-                startActivity(intentSignUP);
+                Intent in=new Intent(getApplicationContext(),SignUp.class);
+                startActivity(in);
             }
         });
     }
-    // Methos to handleClick Event of Sign In Button
-    public void signIn(View V)
-    {
+
+    public void signIn(View V) {
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.signin);
         dialog.setTitle("Sign in");
-
-// get the Refferences of views
         final EditText editTextUserName=(EditText)dialog.findViewById(R.id.editTextUserNameToLogin);
         final EditText editTextPassword=(EditText)dialog.findViewById(R.id.editTextPasswordToLogin);
-
         Button btnSignIn=(Button)dialog.findViewById(R.id.buttonSignIn);
 
-// Set On ClickListener
         btnSignIn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-// get The User name and Password
                 String userName=editTextUserName.getText().toString();
                 String password=editTextPassword.getText().toString();
-
-// fetch the Password form database for respective user name
-                String storedPassword=loginDataBaseAdapter.getSinlgeEntry(userName);
-
-// check if the Stored password matches with Password entered by user
-                if(password.equals(storedPassword))
-                {
+                String storedPassword=loginDataBaseAdapter.getSingleEntry(userName);
+                if(password.equals(storedPassword)) {
                     Toast.makeText(MainActivity.this, "Congrats: Login Successful", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
                     Intent ui=new Intent(getApplicationContext(),UserInterface.class);
                     startActivity(ui);
                 }
-                else
-                {
+                else {
                     Toast.makeText(MainActivity.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
         dialog.show();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-// Close The Database
         loginDataBaseAdapter.close();
     }
 }

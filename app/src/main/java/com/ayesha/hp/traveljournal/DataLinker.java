@@ -10,7 +10,6 @@ public class DataLinker {
 
     // Constructor.
     public DataLinker(int icon, String name) {
-
         this.icon = icon;
         this.name = name;
     }
