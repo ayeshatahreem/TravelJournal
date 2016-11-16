@@ -2,13 +2,12 @@ package com.ayesha.hp.traveljournal;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
 import android.app.Dialog;
-import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 public class MainActivity extends AppCompatActivity
 {
     Button btnSignIn,btnSignUp;
