@@ -10,7 +10,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class DatabaseAdapter
+public class LoginDatabaseAdapter
 {
     static final String DATABASE_NAME = "login.db";
     static final int DATABASE_VERSION = 1;
@@ -19,12 +19,12 @@ public class DatabaseAdapter
             "USERNAME text,PASSWORD text); ";
     public SQLiteDatabase db;
     private final Context context;
-    private DatabaseHelper dbHelper;
-    public DatabaseAdapter(Context _context) {
+    private LoginDatabaseHelper dbHelper;
+    public LoginDatabaseAdapter(Context _context) {
         context = _context;
-        dbHelper = new DatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+        dbHelper = new LoginDatabaseHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-    public DatabaseAdapter open() throws SQLException {
+    public LoginDatabaseAdapter open() throws SQLException {
         db = dbHelper.getWritableDatabase();
         return this;
     }

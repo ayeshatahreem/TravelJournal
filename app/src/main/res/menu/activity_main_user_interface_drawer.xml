@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/nav_profile" />
+        <item
+            android:id="@+id/nav_checkins"
+            android:icon="@drawable/ic_beenhere_black_24dp"
+            android:title="@string/nav_checkins" />
+        <item
+            android:id="@+id/nav_diary"
+            android:icon="@drawable/ic_assignment_black_24dp"
+            android:title="@string/nav_Diary" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_photo_library_black_24dp"
+            android:title="@string/nav_Gallery" />
+        <item
+            android:id="@+id/nav_reviews"
+            android:icon="@drawable/ic_rate_review_black_24dp"
+            android:title="@string/nav_reviews" />
+    </group>
+
+    <item android:title="@string/nav_other">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/nav_settings" />
+            <item
+                android:id="@+id/nav_about"
+                android:title="@string/nav_about"
+                android:icon="@drawable/ic_info_white_24dp"/>
+
+        </menu>
+    </item>
+
+</menu>

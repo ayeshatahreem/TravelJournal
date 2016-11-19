@@ -10,16 +10,16 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DatabaseHelper extends SQLiteOpenHelper
+public class LoginDatabaseHelper extends SQLiteOpenHelper
 {
-    public DatabaseHelper(Context context, String name,CursorFactory factory, int version)
+    public LoginDatabaseHelper(Context context, String name, CursorFactory factory, int version)
     {
         super(context, name, factory, version);
     }
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL(DatabaseAdapter.DATABASE_CREATE);
+        db.execSQL(LoginDatabaseAdapter.DATABASE_CREATE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)

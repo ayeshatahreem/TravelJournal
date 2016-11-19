@@ -15,13 +15,13 @@ public class SignUp extends AppCompatActivity
 {
     EditText editTextUserName,editTextPassword,editTextConfirmPassword;
     Button btnCreateAccount;
-    DatabaseAdapter loginDataBaseAdapter;
+    LoginDatabaseAdapter loginDataBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
-        loginDataBaseAdapter=new DatabaseAdapter(this);
+        loginDataBaseAdapter=new LoginDatabaseAdapter(this);
         loginDataBaseAdapter=loginDataBaseAdapter.open();
         editTextUserName=(EditText)findViewById(R.id.editTextUserName);
         editTextPassword=(EditText)findViewById(R.id.editTextPassword);

@@ -11,12 +11,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
 {
     Button btnSignIn,btnSignUp;
-    DatabaseAdapter loginDataBaseAdapter;
+    LoginDatabaseAdapter loginDataBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loginDataBaseAdapter=new DatabaseAdapter(this);
+        loginDataBaseAdapter=new LoginDatabaseAdapter(this);
         loginDataBaseAdapter=loginDataBaseAdapter.open();
         btnSignIn=(Button)findViewById(R.id.buttonSignIN);
         btnSignUp=(Button)findViewById(R.id.buttonSignUP);
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
                 if(password.equals(storedPassword)) {
                     Toast.makeText(MainActivity.this, "Congrats: Login Successful", Toast.LENGTH_LONG).show();
                     dialog.dismiss();
-                    Intent ui=new Intent(getApplicationContext(),UserInterface.class);
+                    Intent ui=new Intent(getApplicationContext(),MainUserInterface.class);
                     startActivity(ui);
                 }
                 else {
