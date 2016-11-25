@@ -5,7 +5,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_favorite">Favorite</string>
     <string name="action_search">Search for a check in</string>
-
+    <string name="facebook_app_id">563467610530561</string>
     <string name="nav_profile">Profile</string>
         
     <string name="nav_checkins">Check-ins</string>

@@ -121,7 +121,7 @@ public class MainUserInterface extends AppCompatActivity
             mToolbar.setTitle("Settings");
 
         } else if (id == R.id.nav_checkins) {
-            fragment = new CheckInsFragment();
+            fragment = new CheckInsFragment(this);
             mToolbar.setTitle("Check ins");
         }
         else if(id == R.id.nav_profile)

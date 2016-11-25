@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class DiaryFragment extends Fragment {
@@ -28,6 +29,13 @@ public class DiaryFragment extends Fragment {
 
         adapter = new EntriesListAdapter(context);
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                adapter.openDetails(position);
+            }
+        });
         return dView;
     }
 

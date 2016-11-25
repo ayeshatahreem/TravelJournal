@@ -10,9 +10,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -42,11 +45,24 @@ public class AddJournalEntry extends AppCompatActivity {
     EditText mtitle;
     EditText mDescription;
 
+    Toolbar mToolbar;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_journal_entry);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        actionBar.setTitle("Add new entry");
+
+
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         mtitle = (EditText) findViewById(R.id.in_title);
         mDescription = (EditText) findViewById(R.id.in_description);
@@ -98,7 +114,7 @@ public class AddJournalEntry extends AppCompatActivity {
                     Uri selectedImage = data.getData();
                     TextView txtView = (TextView) findViewById(R.id.image_name);
                     // Set the Image login ImageView after decoding the String
-                    txtView.setText(selectedImage.toString());
+                    txtView.setText(selectedImage.getEncodedPath());
                     coverPath = selectedImage.toString();
                 }
             }
@@ -144,6 +160,7 @@ public class AddJournalEntry extends AppCompatActivity {
                 String description = mDescription.getText().toString();
 
                JournalEntryDatabaseAdapter adapter = new JournalEntryDatabaseAdapter(this);
+                in_date = ((TextView)findViewById(R.id.Current_Date)).getText().toString();
 
                 int id = adapter.insert(entryTitle, description, in_date, coverPath, longitude, latitude);
 
@@ -152,8 +169,7 @@ public class AddJournalEntry extends AppCompatActivity {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                 alertDialogBuilder.setTitle("Entry Added");
                 alertDialogBuilder.setMessage("The entry with id "+String.valueOf(id)+" has been added to database.");
-                alertDialogBuilder.setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 finish();
@@ -161,6 +177,16 @@ public class AddJournalEntry extends AppCompatActivity {
                         });
                 alertDialogBuilder.show();
             }
+        }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; go home
+                finish();
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

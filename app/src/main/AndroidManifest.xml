@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ayesha.hp.traveljournal">
+    <uses-sdk android:minSdkVersion="23"
+        android:targetSdkVersion="23"
+        android:maxSdkVersion="24" />
 
     <uses-feature android:name="android.hardware.camera" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -23,37 +25,33 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen" />
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|screenSize"
-            android:label="@string/app_name">
-            >
-        </activity>
-        <activity
-            android:name=".SignUp"
-            android:configChanges="orientation|screenSize"
-            android:label="SignUp for @string/app_name">
-            android:parentActivityName=".MainActivity"
-        </activity>
-           
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB_o4a-lHIBBOW0tm3VOnZ3TSqccc1Fxn0" />
 
-        <activity
-            android:name=".MainUserInterface"
-            android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|screenLayout"
+            android:label="@string/app_name">  </activity>
+
+        <activity android:name=".HashKeyForFB"> </activity>
+        <activity android:name=".FbLogIn"> </activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>/>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".AddJournalEntry"></activity>
+        <activity android:name=".SignUp"
+            android:configChanges="orientation|screenSize|keyboard|keyboardHidden|screenLayout"
+            android:label="SignUp for @string/app_name">
+            android:parentActivityName=".MainActivity"  </activity>
+           
+        <activity android:name=".MainUserInterface" android:theme="@style/AppTheme">  </activity>
+        <activity android:name=".LoginActivity" android:label="@string/title_activity_login" />
+        <activity android:name=".AddJournalEntry" />
+        <activity android:name=".EntryDetails"></activity>
     </application>
-
 </manifest>

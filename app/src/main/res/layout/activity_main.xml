@@ -7,6 +7,13 @@
     android:orientation="vertical"
     android:background="#af182f"
     android:gravity="center_vertical" >
+    <ImageView
+        android:id="@+id/iv_profile_pic"
+        android:src="@drawable/maleicon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="match_parent"
@@ -20,7 +27,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:fontFamily="Comic Sans MS"
         android:textStyle="bold"/>
-
     <Button
         android:id="@+id/buttonSignIN"
         android:layout_width="fill_parent"
@@ -30,12 +36,19 @@
         android:textColor="#af182f"
         android:onClick="signIn"
         android:layout_marginBottom="15dp"/>
-
     <Button
         android:id="@+id/buttonSignUP"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Sign Up"
+        android:background="#ffffff"
+        android:textColor="#af182f"
+        android:layout_marginBottom="15dp"/>
+    <Button
+        android:id="@+id/buttonFb"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Log in with Facebook"
         android:background="#ffffff"
         android:textColor="#af182f"
         android:layout_marginBottom="15dp"/>

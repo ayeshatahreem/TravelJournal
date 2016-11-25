@@ -2,8 +2,10 @@ package com.ayesha.hp.traveljournal;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.TabLayout;
 
 import java.util.Date;
 
@@ -32,9 +34,7 @@ public class JournalEntryDatabaseAdapter {
             LONGITUDE+" double,"+
             LATITUDE+" double" + ")";
 
-    private static SQLiteDatabase db;
-
-    private static JournalEntryDatabaseHelper dbHelper;
+    private SQLiteDatabase db;
 
     private Context context;
 
@@ -42,7 +42,7 @@ public class JournalEntryDatabaseAdapter {
     JournalEntryDatabaseAdapter(Context context)
     {
         this.context = context;
-        dbHelper = new JournalEntryDatabaseHelper(context, DATABASE_NAME, null, 1);
+        JournalEntryDatabaseHelper dbHelper = new JournalEntryDatabaseHelper(context, DATABASE_NAME, null, 1);
 
         db = dbHelper.getWritableDatabase();
     }
@@ -63,5 +63,9 @@ public class JournalEntryDatabaseAdapter {
     public Cursor getAll()
     {
         return db.rawQuery("select * from "+TABLE_NAME, null);
+    }
+    public Cursor getSingleRow(int id)
+    {
+        return db.rawQuery("select * from "+TABLE_NAME+" where "+ENTRY_ID+"=?",  new String[]{id+""});
     }
 }

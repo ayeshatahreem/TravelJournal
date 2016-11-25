@@ -8,9 +8,10 @@ import android.app.Dialog;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 public class MainActivity extends AppCompatActivity
 {
-    Button btnSignIn,btnSignUp;
+    Button btnSignIn,btnSignUp,btnFb;
     LoginDatabaseAdapter loginDataBaseAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,13 @@ public class MainActivity extends AppCompatActivity
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent in=new Intent(getApplicationContext(),SignUp.class);
+                startActivity(in);
+            }
+        });
+        btnFb=(Button)findViewById(R.id.buttonFb);
+       btnFb.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent in=new Intent(getApplicationContext(),FbLogIn.class);
                 startActivity(in);
             }
         });
@@ -55,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         });
         dialog.show();
     }
+
 
     @Override
     protected void onDestroy() {
